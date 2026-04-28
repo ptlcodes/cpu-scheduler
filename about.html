@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Scheduler — About</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-wrap { max-width: 780px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+    .about-section { margin-bottom: 2.2rem; }
+    .about-section h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text2);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+    }
+    .about-section p  { color: var(--text2); font-size: 14px; line-height: 1.8; margin-bottom: 10px; }
+    .about-section ul { color: var(--text2); font-size: 14px; line-height: 1.8; padding-left: 1.4rem; }
+    .about-section li { margin-bottom: 5px; }
+    .about-section code {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .team-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .team-card-role { font-size: 11px; font-weight: 700; color: var(--text3); margin-bottom: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .team-card-name { font-size: 15px; font-weight: 800; color: var(--text); }
+    .team-card-reg  { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 4px; font-weight: 500; }
+
+    .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+    .module-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px 16px;
+    }
+    .module-num  { font-size: 11px; font-weight: 700; color: var(--text3); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .module-name { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 7px; }
+    .module-desc { font-size: 12px; color: var(--text2); line-height: 1.65; }
+
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 5px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      color: var(--text2);
+      font-weight: 500;
+    }
+
+    .algo-list-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .algo-list-table th {
+      text-align: left;
+      padding: 8px 12px;
+      color: var(--text3);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-bottom: 1.5px solid var(--border);
+      background: var(--surface2);
+      text-transform: uppercase;
+    }
+    .algo-list-table td { padding: 10px 12px; border-bottom: 1px solid var(--border2); color: var(--text2); vertical-align: top; }
+    .algo-list-table tr:last-child td { border-bottom: none; }
+    .algo-list-table td:first-child { font-family: var(--mono); font-weight: 600; font-size: 12px; }
+
+    .file-tree {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 2;
+      padding: 14px 16px;
+      background: var(--surface2);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border2);
+    }
+    .file-tree .folder { color: var(--accent); font-weight: 600; }
+    .file-tree .file   { color: var(--text);   font-weight: 500; }
+    .file-tree .comment{ color: var(--text3);  font-weight: 400; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">cpu<span>.</span>sched</a>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="index.html">Simulator</a>
+    <a class="nav-tab" href="compare.html">Compare</a>
+    <a class="nav-tab active" href="about.html">About</a>
+  </div>
+  <div class="nav-badge">2EO46 · v1.0</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">PROJECT DOCUMENTATION</div>
+  <h1>About This<br><span>Project</span></h1>
+  <p>A web-based CPU scheduling simulator built from scratch using HTML, CSS, and JavaScript. No frameworks, no libraries — just vanilla code.</p>
+</div>
+
+<div class="about-wrap">
+
+  <div class="about-section">
+    <h2>Team</h2>
+    <div class="team-grid">
+      <div class="team-card" style="border-top:3px solid #2563eb">
+        <div class="team-card-role">Lead · Simulator Logic</div>
+        <div class="team-card-name">Pratul Prakash</div>
+        <div class="team-card-reg">Reg: 12400691</div>
+      </div>
+      <div class="team-card" style="border-top:3px solid #16a34a">
+        <div class="team-card-role">UI · Visualization</div>
+        <div class="team-card-name">Jasan Jose</div>
+        <div class="team-card-reg">Reg: 12400843</div>
+      </div>
+      <div class="team-card" style="border-top:3px solid #7c3aed">
+        <div class="team-card-role">Algorithms · Testing</div>
+        <div class="team-card-name">Akshay V</div>
+        <div class="team-card-reg">Reg: 12417817</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Project Overview</h2>
+    <p>This simulator was built for the Operating Systems CA2 project (Section 2EO46). The goal was to make CPU scheduling algorithms easier to understand by visualizing them interactively.</p>
+    <p>Users can enter custom processes with arrival times, burst times, and priority values, pick any of 6 algorithms, and instantly see a Gantt chart and performance metrics like average waiting time, turnaround time, and CPU utilization. There's also a comparison page that benchmarks all algorithms on the same workload.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Module Breakdown</h2>
+    <div class="module-grid">
+      <div class="module-card" style="border-left:4px solid #2563eb">
+        <div class="module-num">Module 01</div>
+        <div class="module-name">Input & GUI</div>
+        <div class="module-desc">Process entry form, algorithm selector cards, time quantum input for Round Robin, and the process queue table. Built in <code>index.html</code>.</div>
+      </div>
+      <div class="module-card" style="border-left:4px solid #16a34a">
+        <div class="module-num">Module 02</div>
+        <div class="module-name">Scheduling Engine</div>
+        <div class="module-desc">All 6 algorithm implementations — FCFS, SJF, SRTF, Round Robin, Priority (preemptive + non-preemptive). Lives entirely in <code>algorithms.js</code>.</div>
+      </div>
+      <div class="module-card" style="border-left:4px solid #7c3aed">
+        <div class="module-num">Module 03</div>
+        <div class="module-name">Visualization</div>
+        <div class="module-desc">Gantt chart renderer, metric cards, per-process stats table, and the side-by-side bar chart comparison in <code>compare.html</code>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Algorithms Implemented</h2>
+    <div class="panel" style="overflow:hidden">
+      <table class="algo-list-table">
+        <thead><tr><th>Name</th><th>Type</th><th>How it works</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="color:#2563eb">FCFS</td>
+            <td>Non-preemptive</td>
+            <td>Runs processes in the order they arrive. Simple but can cause the convoy effect when a long job blocks shorter ones.</td>
+          </tr>
+          <tr>
+            <td style="color:#16a34a">SJF</td>
+            <td>Non-preemptive</td>
+            <td>Picks the process with the smallest burst time from the ready queue each time the CPU is free. Gives the lowest average waiting time for a static job set.</td>
+          </tr>
+          <tr>
+            <td style="color:#0891b2">SRTF</td>
+            <td>Preemptive</td>
+            <td>Preemptive version of SJF. If a new process arrives with a shorter remaining time than the current one, it preempts immediately.</td>
+          </tr>
+          <tr>
+            <td style="color:#d97706">Round Robin</td>
+            <td>Preemptive</td>
+            <td>Each process gets a fixed time quantum in circular order. Good for interactive systems. Performance depends heavily on quantum size.</td>
+          </tr>
+          <tr>
+            <td style="color:#7c3aed">Priority NP</td>
+            <td>Non-preemptive</td>
+            <td>The process with the lowest priority number runs to completion before the next one is selected. Can cause starvation of low-priority processes.</td>
+          </tr>
+          <tr>
+            <td style="color:#db2777">Priority P</td>
+            <td>Preemptive</td>
+            <td>If a process with a higher priority arrives while another is running, it immediately takes over the CPU.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Technology Used</h2>
+    <div class="tech-tags">
+      <span class="tech-tag">HTML5</span>
+      <span class="tech-tag">CSS3</span>
+      <span class="tech-tag">JavaScript (ES6+)</span>
+      <span class="tech-tag">Google Fonts</span>
+      <span class="tech-tag">GitHub</span>
+    </div>
+    <p style="margin-top:12px">No external JavaScript libraries or frameworks were used. All algorithm logic and DOM rendering is written from scratch.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>File Structure</h2>
+    <div class="file-tree">
+      <span class="folder">cpu-scheduler-simulator/</span><br>
+      &nbsp;&nbsp;├── <span class="file">index.html</span> &nbsp;&nbsp;&nbsp;<span class="comment">— Simulator page (Module 1 + 3)</span><br>
+      &nbsp;&nbsp;├── <span class="file">compare.html</span> &nbsp;<span class="comment">— Algorithm comparison page</span><br>
+      &nbsp;&nbsp;├── <span class="file">about.html</span> &nbsp;&nbsp;<span class="comment">— Project info &amp; documentation</span><br>
+      &nbsp;&nbsp;├── <span class="file">algorithms.js</span> <span class="comment">— Scheduling engine (Module 2)</span><br>
+      &nbsp;&nbsp;└── <span class="file">style.css</span> &nbsp;&nbsp;&nbsp;<span class="comment">— Shared styles for all pages</span>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>How to Use</h2>
+    <ul>
+      <li>Open <code>index.html</code> directly in any browser — no server needed</li>
+      <li>Select a scheduling algorithm from the cards</li>
+      <li>Add processes manually or click "Load sample" for demo data</li>
+      <li>Hit "Run Simulation" to generate the Gantt chart and stats</li>
+      <li>Go to Compare tab to see all algorithms on the same dataset</li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h2>Course Details</h2>
+    <p>Subject: <strong>Operating Systems</strong> &nbsp;·&nbsp; Section: <strong>2EO46</strong> &nbsp;·&nbsp; CA2 Project &nbsp;·&nbsp; Academic Year 2025–26</p>
+  </div>
+
+</div>
+</body>
+</html>

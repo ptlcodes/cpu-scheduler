@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Scheduler — Compare</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .compare-wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem 2.5rem; }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .compare-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem;
+    }
+    .compare-card-title {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      padding-bottom: 9px;
+      border-bottom: 1.5px solid var(--border2);
+    }
+    .compare-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .compare-key { color: var(--text2); font-weight: 600; }
+    .compare-val { font-family: var(--mono); font-weight: 600; font-size: 13px; }
+    .good { color: var(--green); }
+    .mid  { color: var(--amber); }
+    .bad  { color: var(--red);   }
+    .best-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #86efac;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .chart-section {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .chart-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text2);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+    .bar-label { font-family: var(--mono); font-size: 11px; color: var(--text2); width: 75px; flex-shrink:0; text-align:right; font-weight:500; }
+    .bar-track {
+      flex: 1;
+      background: var(--surface2);
+      border-radius: 5px;
+      height: 26px;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding-left: 9px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 36px;
+      transition: width 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">cpu<span>.</span>sched</a>
+  <div class="nav-tabs">
+    <a class="nav-tab" href="index.html">Simulator</a>
+    <a class="nav-tab active" href="compare.html">Compare</a>
+    <a class="nav-tab" href="about.html">About</a>
+  </div>
+  <div class="nav-badge">2EO46 · v1.0</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">ALGORITHM COMPARISON</div>
+  <h1>All Algorithms<br><span>Side by Side</span></h1>
+  <p>Same set of 5 processes, every algorithm. See which one wins on waiting time, turnaround, and CPU utilization. Green = best, red = worst.</p>
+</div>
+
+<div class="compare-wrap">
+  <div class="info-box" style="margin-bottom:1.5rem">
+    Dataset used: P1(0,6,prio=3) · P2(2,4,prio=1) · P3(4,2,prio=4) · P4(5,5,prio=2) · P5(7,3,prio=5) &nbsp;|&nbsp; RR quantum = 2
+    <br><span style="color:#3b82f6;font-size:12px">Want custom data? Run it on the Simulator tab.</span>
+  </div>
+
+  <div class="compare-grid" id="compare-grid"></div>
+
+  <div class="chart-section">
+    <div class="chart-title">Avg Waiting Time — lower is better</div>
+    <div id="wt-chart"></div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-title">Avg Turnaround Time — lower is better</div>
+    <div id="tat-chart"></div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-title">CPU Utilization — higher is better</div>
+    <div id="cpu-chart"></div>
+  </div>
+</div>
+
+<script src="algorithms.js"></script>
+<script>
+const SAMPLE = [
+  { pid:'P1', arrival:0, burst:6, priority:3, color:'#2563eb' },
+  { pid:'P2', arrival:2, burst:4, priority:1, color:'#16a34a' },
+  { pid:'P3', arrival:4, burst:2, priority:4, color:'#d97706' },
+  { pid:'P4', arrival:5, burst:5, priority:2, color:'#7c3aed' },
+  { pid:'P5', arrival:7, burst:3, priority:5, color:'#dc2626' },
+];
+
+const ALGO_LIST = [
+  { key:'fcfs',       label:'FCFS',        color:'#2563eb' },
+  { key:'sjf',        label:'SJF',         color:'#16a34a' },
+  { key:'srtf',       label:'SRTF',        color:'#0891b2' },
+  { key:'rr',         label:'RR (q=2)',    color:'#d97706' },
+  { key:'priority',   label:'Priority NP', color:'#7c3aed' },
+  { key:'priority_p', label:'Priority P',  color:'#db2777' },
+];
+
+function runAll() {
+  return ALGO_LIST.map(a => {
+    const stats = buildStats(SAMPLE);
+    runAlgo(a.key, stats, 2);
+    computeStats(stats);
+    const vals   = Object.values(stats);
+    const avgWT  = vals.reduce((x, v) => x + v.waiting,    0) / vals.length;
+    const avgTAT = vals.reduce((x, v) => x + v.turnaround, 0) / vals.length;
+    const avgRT  = vals.reduce((x, v) => x + v.response,   0) / vals.length;
+    const end    = Math.max(...vals.map(v => v.finish));
+    const cpu    = (vals.reduce((x, v) => x + v.burst, 0) / end) * 100;
+    return { ...a, avgWT, avgTAT, avgRT, cpu };
+  });
+}
+
+function cls(val, best, lower) {
+  if (lower) return val === best ? 'good' : val > best * 1.4 ? 'bad' : 'mid';
+  return val === best ? 'good' : val < best * 0.88 ? 'bad' : 'mid';
+}
+
+const R    = runAll();
+const minWT  = Math.min(...R.map(r => r.avgWT));
+const minTAT = Math.min(...R.map(r => r.avgTAT));
+const maxCPU = Math.max(...R.map(r => r.cpu));
+const maxWT  = Math.max(...R.map(r => r.avgWT));
+const maxTAT = Math.max(...R.map(r => r.avgTAT));
+
+document.getElementById('compare-grid').innerHTML = R.map(r => `
+  <div class="compare-card" style="border-top:3px solid ${r.color}">
+    <div class="compare-card-title" style="color:${r.color}">${r.label}</div>
+    <div class="compare-row">
+      <span class="compare-key">Avg Waiting</span>
+      <span class="compare-val ${cls(r.avgWT, minWT, true)}">${r.avgWT.toFixed(2)}</span>
+    </div>
+    <div class="compare-row">
+      <span class="compare-key">Avg Turnaround</span>
+      <span class="compare-val ${cls(r.avgTAT, minTAT, true)}">${r.avgTAT.toFixed(2)}</span>
+    </div>
+    <div class="compare-row">
+      <span class="compare-key">Avg Response</span>
+      <span class="compare-val">${r.avgRT.toFixed(2)}</span>
+    </div>
+    <div class="compare-row">
+      <span class="compare-key">CPU Util.</span>
+      <span class="compare-val ${cls(r.cpu, maxCPU, false)}">${r.cpu.toFixed(1)}%</span>
+    </div>
+    ${r.avgWT === minWT ? '<span class="best-tag">best waiting time</span>' : ''}
+  </div>`).join('');
+
+function buildBars(containerId, data, maxVal, suffix, lower) {
+  document.getElementById(containerId).innerHTML = data.map(r => `
+    <div class="bar-row">
+      <div class="bar-label">${r.label}</div>
+      <div class="bar-track">
+        <div class="bar-fill ${cls(r.val, lower ? Math.min(...data.map(d=>d.val)) : Math.max(...data.map(d=>d.val)), lower)}"
+          style="width:${(r.val / maxVal * 100).toFixed(1)}%;background:${r.color}28;color:${r.color}">
+          ${r.val.toFixed(2)}${suffix}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+buildBars('wt-chart',  R.map(r => ({ ...r, val: r.avgWT })),  maxWT,  '',  true);
+buildBars('tat-chart', R.map(r => ({ ...r, val: r.avgTAT })), maxTAT, '',  true);
+buildBars('cpu-chart', R.map(r => ({ ...r, val: r.cpu })),    100,    '%', false);
+</script>
+</body>
+</html>
